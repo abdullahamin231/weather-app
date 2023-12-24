@@ -1,158 +1,140 @@
-import {
-  createTodo,
-  handleCreateButton,
-  createNote,
-  createProject,
-} from "./todo";
-import {
-  handleRendering,
-  renderNotes,
-  createTodoForm,
-  createNoteForm,
-  createProjectForm,
-  handleProjects,
-} from "./rendering";
+const baseUrl = "http://api.weatherapi.com/v1"
+const key = "bd78ac7fb3ea49ec91c111815232412"
+let city = "auckland"
+let currentURL = `${baseUrl}/current.json?key=${key}&q=${city}&aqi=no`;
 
-let todoList = [];
-let notesList = [];
-let projectsList = [];
+function renderWeather(data) {
 
-function updateLocalStorage() {
-  localStorage.setItem("todoList", JSON.stringify(todoList));
+    const temp = document.getElementById("temp");
+    temp.textContent = `${data.current.temp_c}°C`;
+
+    const cond = document.getElementById("cond");
+    const condImg = document.getElementById("condimg");
+    condImg.src = data.current.condition.icon;
+    condImg.style.width = "3rem";
+    cond.appendChild(condImg);
+    const condtxt = document.getElementById("cond-text");
+    condtxt.textContent = data.current.condition.text;
+
+    const name = document.getElementById("city");
+    name.textContent = `${data.location.name}, `;
+    const country = document.getElementById("country");
+    country.textContent = data.location.country;
+
+    const d = data.location.localtime;
+    const dateObject = new Date(d);
+    // Extract date components
+    const year = dateObject.getFullYear();
+    const month = dateObject.toLocaleString("default", { month: "short" });
+    const day = dateObject.getDate();
+    const fullDay = dateObject.toLocaleString("default", { weekday: "long" });
+
+    // Extract time components
+    const hours = dateObject.getHours();
+    const minutes = dateObject.getMinutes();
+    const ampm = hours >= 12 ? "PM" : "AM";
+    const formattedHours = hours % 12 || 12; // Convert to 12-hour format
+
+    // Construct the formatted date and time strings
+    const formattedDate = `${fullDay}, ${day} ${month} ${year}`;
+    const formattedTime = `${formattedHours}:${minutes < 10 ? "0" : ""}${minutes} ${ampm}`;
+
+    const date = document.getElementById("date");
+    date.textContent = formattedDate;
+    const time = document.getElementById("time");
+    time.textContent = formattedTime;
+
+    const feelvalElement = document.getElementById("feelval");
+    feelvalElement.textContent = `${data.current.feelslike_c}°C`;
+    const rainvalElement = document.getElementById("rainval");
+    rainvalElement.textContent = `${data.current.cloud  }%`;
+    const windvalElement = document.getElementById("windval");
+    windvalElement.textContent = `${data.current.wind_kph}kph`;
+    const hvalElement = document.getElementById("hval");
+    hvalElement.textContent = `${data.current.humidity}%`;
 }
-function getFromLocalStorage() {
-  const gottenList = localStorage.getItem("todoList");
-  if (gottenList) {
-    todoList = JSON.parse(gottenList);
-  }
-  const gottenNotes = localStorage.getItem("notesList");
-  if (gottenNotes) {
-    notesList = JSON.parse(gottenNotes);
-  }
-  const gottenProjects = localStorage.getItem("projectsList");
-  if (gottenProjects) {
-    projectsList = JSON.parse(gottenProjects);
-  }
+
+
+
+async function getWeatherAPI() {
+    try {
+        const response = await fetch(currentURL, { mode: "cors" });
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+
+        const data = await response.json();
+        renderWeather(data);
+        console.log(data);
+    } catch (error) {
+        console.error("Error fetching weather data:", error.message);
+        displayErrorMessage(error.message);
+        
+        // Automatically remove the error message after 5 seconds (5000 milliseconds)
+        setTimeout(() => {
+            removeErrorMessage();
+        }, 5000);
+    }
 }
 
-function resetButtonBorders() {
-  todayBtn.style.border = "none";
-  homeBtn.style.border = "none";
-  weekBtn.style.border = "none";
+function displayErrorMessage(message) {
+    const infoDiv = document.getElementById("info");
+    
+    // Create an error message element
+    const errorMessageElement = document.createElement("div");
+    errorMessageElement.className = "error-message";
+    errorMessageElement.textContent = "Error: Invalid city name / empty search";
+
+    // Append the error message element to the 'info' div
+    infoDiv.appendChild(errorMessageElement);
 }
 
-const main = document.getElementById("main");
-let createWhat = "todo";
-let chosenProject = "home";
-getFromLocalStorage();
+function removeErrorMessage() {
+    const infoDiv = document.getElementById("info");
+    const errorMessageElement = infoDiv.querySelector(".error-message");
 
-handleProjects();
+    // Remove the error message element if it exists
+    if (errorMessageElement) {
+        infoDiv.removeChild(errorMessageElement);
+    }
+}
 
-document.getElementById("form").addEventListener("submit", (e) => {
-  e.preventDefault();
-  if (createWhat == "todo") {
-    const title = document.getElementById("textarea-title").value;
-    const details = document.getElementById("textarea-details").value;
-    const date = document.getElementById("modal-date").value;
-    const done = false;
-    const selectedP = document.getElementById("priority").value;
-    const newTodo = createTodo(
-      title,
-      details,
-      date,
-      selectedP,
-      done,
-      chosenProject,
-    );
-    chosenProject = "";
-    console.log(newTodo);
-    todoList.push(newTodo);
-    localStorage.setItem("todoList", JSON.stringify(todoList));
-  } else if (createWhat == "note") {
-    const title = document.getElementById("textarea-title").value;
-    const details = document.getElementById("textarea-details").value;
-    const newNote = createNote(title, details);
-    console.log(newNote);
-    console.log(notesList);
-    notesList.push(newNote);
-    localStorage.setItem("notesList", JSON.stringify(notesList));
-  } else if (createWhat == "project") {
-    const title = document.getElementById("textarea-title").value;
-    const newProject = createProject(title);
-    projectsList.push(newProject);
-    localStorage.setItem("projectsList", JSON.stringify(projectsList));
-  }
-  main.style.filter = "blur(0px)";
-  document.getElementById("modal").style.visibility = document.getElementById("modal").style.visibility == "visible"
-    ? "hidden"
-    : "visible";
-  window.location.reload();
-});
 
-handleRendering("home");
-handleCreateButton();
 
-const projectBtns = document.getElementsByClassName("whichProject");
-[...projectBtns].forEach((btn) => btn.addEventListener("click", (e) => {
-  chosenProject = e.currentTarget.value;
-  handleRendering(chosenProject);
-}));
 
-const todoBtn = document.getElementById("Btntodo");
-todoBtn.addEventListener("click", () => {
-  createWhat = "todo";
-  createTodoForm();
-});
-const projectBtn = document.getElementById("Btnproject");
-projectBtn.addEventListener("click", () => {
-  createWhat = "project";
-  createProjectForm();
-});
-const noteBtn = document.getElementById("Btnnote");
-noteBtn.addEventListener("click", () => {
-  createWhat = "note";
-  createNoteForm();
-});
-const todayBtn = document.getElementById("today");
-todayBtn.addEventListener("click", () => {
-  resetButtonBorders();
-  todayBtn.style.border = "1px solid #3A3A3A";
-  handleRendering("today");
-});
+getWeatherAPI();
 
-const homeBtn = document.getElementById("home");
-homeBtn.addEventListener("click", () => {
-  resetButtonBorders();
-  homeBtn.style.border = "1px solid #3A3A3A";
-  handleRendering("home");
-});
 
-const weekBtn = document.getElementById("week");
-weekBtn.addEventListener("click", () => {
-  resetButtonBorders();
-  weekBtn.style.border = "1px solid #3A3A3A";
-  handleRendering("week");
-});
+const btn = document.getElementById("searchBtn");
+btn.addEventListener("click", ()=>{
+    const input = document.getElementById("searchField");
+    city = input.value;
+    currentURL = `${baseUrl}/current.json?key=${key}&q=${city}&aqi=no`;
+    getWeatherAPI();
+    renderWeather();
+    input.value = "";
+})
 
-const notesBtn = document.getElementById("notes");
-notesBtn.addEventListener("click", () => {
-  renderNotes();
-});
 
-const closeBtn = document.getElementById("modal-top-close");
-closeBtn.addEventListener("click", () => {
-  main.style.filter = "blur(0px)";
-  document.getElementById("modal").style.visibility = document.getElementById("modal").style.visibility == "visible"
-    ? "hidden"
-    : "visible";
-});
-const closeDetailsBtn = document.getElementById("detailsModal-top-close");
-closeDetailsBtn.addEventListener("click", () => {
-  main.style.filter = "blur(0px)";
-  document.getElementById("detailsModal").style.visibility = "hidden";
-});
-const closeEditBtn = document.getElementById("editModal-top-close");
-closeEditBtn.addEventListener("click", () => {
-  main.style.filter = "blur(0px)";
-  document.getElementById("editModal").style.visibility = "hidden";
-});
+// function getWeatherData(){
+//     return new Promise((resolve, reject) => {
+//         fetch(currentURL, {mode:"cors"})
+//             .then(response => {
+//                 if(!response.ok){
+//                     throw new Error(`HTTP error! Status: ${response.status}`)
+//                 }
+//                 return response.json();
+//             })
+//             .then(data => resolve(data))
+//             .catch(error => reject(error))
+//     })
+// }
+
+// getWeatherData()
+//     .then(
+//         data => console.log(data)
+//     )
+//     .catch(
+//         error => console.log(error)
+//     )

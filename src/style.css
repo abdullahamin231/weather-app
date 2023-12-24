@@ -1,548 +1,208 @@
-:root {
-  --accent: #007ecc;
-  --accent-2: #ec2f4b;
-  --text: #003f66;
-  --text-hover: var(--accent);
-  --text-active: #ffffff;
-  --border-width: 0.125em;
-}
-
 body {
-  margin: 0 auto;
-  font-family: Poppins;
-  overflow: scroll;
+    margin: 0;
+    font-family: Poppins;
+    background-image: url('/src/images/bg.jpg');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center center;
+    background-size: cover;
+    color: white;
 }
+
 body::-webkit-scrollbar {
-  display: none;
+    display: none;
 }
 
-header {
-  background-color: #ffffff;
-  text-align: center;
-  padding: 0.6rem 0rem 1rem 0rem;
-  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-}
-.blur {
-  filter: blur(80px);
-}
-.library-txt {
-  font-weight: 700;
-  font-size: 2em;
-}
 main {
-  display: grid;
-  grid-template-columns: 1fr 3fr;
-  height: 100dvh;
-}
-.all-projects {
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  padding-top: 1rem;
-  background-color: #eeeeee;
-}
-#btn {
-  margin: 0.5rem 3rem 0rem 3rem;
-  padding: 0;
-  transition: all 250ms ease-in-out;
-}
-#btn:hover {
-  transform: scale(1.05);
-}
-#createBtnDiv {
-  margin: 7rem 3rem 0rem 3rem;
-  padding: 0;
-}
-#createBtnDiv button {
-  background-color: #3a3a3a;
-  color: white;
-  border: none;
-  font-size: 3rem;
-  height: 80px;
-  width: 80px;
-  transition: all 250ms ease-in-out;
-  border-radius: 50%;
-}
-#createBtnDiv button:hover {
-  cursor: pointer;
-  box-shadow: rgba(0, 0, 0, 0.56) 0px 11px 70px 4px;
-}
-#btn button {
-  background: transparent;
-  font-size: 1.25rem;
-  font-weight: 300;
-  font-family: "Poppins", sans-serif;
-  border: none;
-}
-#btn button:hover {
-  cursor: pointer;
-  font-weight: 400;
-}
-#projects ul {
-  margin: 0;
-}
-#projects ul button {
-  font-size: 1rem;
-}
-.current-project {
-  overflow-y: scroll;
-  overflow-x: hidden;
-  padding: 2rem 3rem;
-  background-color: rgb(58, 58, 58);
-}
-#todoBox {
-  display: flex;
-  align-items: center;
-  margin-bottom: 1rem;
-  padding: 0.25rem;
-  background-color: #eee;
+    margin: 3rem 4rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
 }
 
-.todo-tick {
-  margin-left: 0.5rem;
-  height: 1.5rem;
-  width: 1.5rem;
-  margin-right: 1rem;
-  display: block;
-  background: url("./images/checkbox-blank-outline.svg");
-  background-repeat: no-repeat;
-  background-size: contain;
-}
-.checked {
-  text-decoration: line-through;
+#wInfo {
+    display: flex;
+    flex-direction: row;
 }
 
-.todo-title {
-  font-family: "Poppins", sans-serif;
-  font-size: 1.5rem;
-  margin-right: auto;
-  padding-bottom: 3px;
-  font-weight: 200;
-}
-#todo-details-btn {
-  /* border: 1px solid #1F87FD; */
-  text-transform: uppercase;
-  font-family: "Poppins", sans-serif;
-  font-weight: 700;
-  font-size: 0.85rem;
-  margin-right: 2rem;
-  /* color: #1F87FD; */
-  background-color: transparent;
-  transition: all 250ms ease-in-out;
-  border-radius: 5px;
-  padding: 2px 10px;
-}
-#todo-details-btn:hover {
-  background-color: #3a3a3a;
-  cursor: pointer;
-  color: #eeeeee;
-}
-.todo-date {
-  width: 8rem;
-  font-size: 0.95rem;
-  margin-right: 1.5rem;
-}
-.todo-edit {
-  height: 1.5rem;
-  width: 1.5rem;
-  display: block;
-  /* background: url("./images/square-edit-outline.svg");
-    background-repeat: no-repeat;
-    background-size: contain; */
-  margin-right: 1rem;
-}
-.todo-delete {
-  height: 1.5rem;
-  width: 1.5rem;
-  display: block;
-  /* background: url("./images/trash-can.svg");
-    background-repeat: no-repeat;
-    background-size: contain; */
-  margin-right: 0.5rem;
-}
-.todo-edit:hover,
-.todo-delete:hover,
-.todo-tick:hover {
-  cursor: pointer;
+#temp {
+    font-size: 10rem;
+    margin: 0;
+    max-height: 280px;
+    color: #ecfffe;
 }
 
-#modal {
-  text-align: center;
-  visibility: hidden;
-  position: fixed;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  width: 70%;
-  height: 80%;
-  border-radius: 8px;
-  z-index: 100;
-  box-shadow: 0px 10px 50px rgba(0, 0, 0, 0.1);
-  overflow: hidden;
-  background-color: #fff;
+#info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-left: 1rem;
+    color: #ffda7d;
+    background-color: #539ca747;
+    font-weight: bolder;
+    max-width: fit-content;
+    padding: 0.75rem .5rem;
+	transition: all 250ms ease-in-out;
+}
+#cond,
+#loc-m {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 0.5rem;
 }
 
-.modal-top {
-  padding: 0.5rem 0.5rem;
-  width: 100%;
-  display: flex;
-  align-items: center;
-  background-color: #3a3a3a;
-}
-.modal-top p {
-  padding: 0;
-  font-size: 1.5rem;
-  color: #eeeeee;
-  margin: 0 auto 0 0.5rem;
-}
-#modal-top-close {
-  height: 2rem;
-  width: 2rem;
-  display: block;
-  background: url("./images/close.svg");
-  background-repeat: no-repeat;
-  background-size: contain;
-  background-color: #eeeeee;
-  margin-right: 1rem;
-  transition: box-shadow 250ms ease-in-out;
-}
-#modal-top-close:hover {
-  cursor: pointer;
-}
-.modal-all-projects {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  height: 100%;
-  border-right: 1px solid #3a3a3a;
-  background-color: #eeeeee;
-}
-#form {
-  height: 100%;
-  display: grid;
-  grid-template-columns: 1fr 3fr;
-}
-.modal-current-project-todo {
-  padding: 1rem;
-  background-color: #f7f7f7;
-  display: flex;
-  flex-direction: column;
-}
-.modal-current-project-todo textarea {
-  border: none;
-  resize: none;
-  overflow: hidden;
-  background-color: transparent;
-  color: #3a3a3a;
-  font-family: "Poppins", sans-serif;
-}
-.modal-current-project-todo textarea:focus {
-  outline: none;
-}
-.modal-current-project-todo textarea::placeholder {
-  color: #3a3a3a;
-}
-.modal-current-project-todo .dueDate {
-  display: flex;
-  flex-direction: row;
-  gap: 10px;
-}
-.modal-current-project-todo .priority {
-  display: flex;
-  gap: 10px;
-}
-.modal-current-project-todo .priority p {
-  padding: 0;
-  margin: 0;
-}
-input[type="date"] {
-  display: block;
-  position: relative;
-  padding: 0.25rem 0.75rem;
-  margin-bottom: 10px;
-  max-width: 40%;
-  font-size: 1rem;
-  font-family: "Poppins";
-  border: 1px solid #8292a2;
-  border-radius: 0.25rem;
-  background: white;
-  cursor: pointer;
-}
-input[type="date"]:focus {
-  outline: none;
-}
-.priorBtn,
-.editPriorBtn {
-  border-radius: 4px;
-  font-family: "Poppins", sans-serif;
-  text-transform: uppercase;
-  padding-right: 12px;
-  padding-left: 12px;
-  font-size: 0.75rem;
-  border: none;
-}
-#low {
-  border: 1px solid green;
-  background-color: transparent;
-  color: green;
+#datetime {
+    display: flex;
+    flex-direction: column-reverse;
 }
 
-#medium {
-  border: 1px solid orange;
-  background-color: transparent;
-  color: orange;
+#cond {
+    font-size: 2rem;
+}
+input[type="text"]{
+	border: none;
+	color: white;
+	font-family: 'Poppins';
+	background-color: #5099A2;
+	width: 100%;
+	transition: all 250ms ease-in-out;
+	padding: .25rem 0.1rem;
+}
+input[type="text"]::placeholder{
+	opacity: .6;
+	color: white;
+}
+input[type="text"]:hover, input[type="text"]:focus-visible{
+	background-color: #73bcc5;
+	outline: none;
+}
+#search{
+	display: flex;flex-direction: row; align-items: center;
+}
+#searchBtn{
+	width: 40px; height: 40px;
+	background-image: url('../src/images/magnify.svg');
+	background-repeat: no-repeat;
+	background-size: cover; 
+	filter: brightness(0) invert(1); /* Set the color to white */
+}
+#searchBtn:hover{
+	cursor: pointer;
+}
+#user > :not(:last-child) {
+    margin-bottom: 2rem;
 }
 
-#high {
-  border: 1px solid #fe2a23;
-  background-color: transparent;
-  color: #fe2a23;
+#detail {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 0.5rem;
+	transition: all 250ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+#detail:hover{
+	transform: scale(1.1);
+}
+#img svg {
+    width: 4rem;
+    height: 3rem;
 }
 
-#add {
-  background-color: transparent;
-  border: 1px solid #3a3a3a;
-  margin-left: auto;
-  font-weight: 600;
-  color: #3a3a3a;
-  transition: background-color 250ms ease-in-out;
-}
-#add:hover {
-  cursor: pointer;
-  background-color: #3a3a3a;
-  color: #eeeeee;
+#rest {
+    display: flex;
+    flex-direction: column;
 }
 
-select {
-  border: 1px solid #ccc;
-  padding-left: 0.5rem;
-  padding-right: 0.5rem;
-  border-radius: 4px;
-  font-family: "Poppins", sans-serif;
-  appearance: none; /* Remove default arrow in some browsers */
-  background-color: white; /* Adjust as needed */
-  width: max-content; /* Adjust the width as needed */
+#txt {
+    font-size: smaller;
+    text-transform: lowercase;
 }
 
-select:hover,
-select:focus {
-  border-color: #4c78af; /* Highlight border color on hover/focus */
+.val {
+    font-weight: bold;
+    font-size: 2rem;
 }
 
-select:disabled {
-  background-color: #f4f4f4; /* Lighter background for disabled state */
+/* Media Queries */
+
+@media (max-width: 950px){
+	main{
+		font-size: smaller;
+	}
 }
 
-#detailsModal {
-  text-align: center;
-  visibility: hidden;
-  position: fixed;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  width: 50%;
-  height: fit-content;
-  border-radius: 8px;
-  z-index: 100;
-  box-shadow: 0px 10px 50px rgba(0, 0, 0, 0.1);
-  overflow: hidden;
-  background-color: #fff;
-  box-shadow:
-    rgba(0, 0, 0, 0.16) 0px 10px 36px 0px,
-    rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
-}
-#detailsModal p {
-  text-wrap: wrap;
-  margin: 0;
-  padding: 0;
-}
-#details-title,
-#details-details,
-#details-date,
-#details-priority {
-  font-family: "Poppins", sans-serif;
-  display: flex;
-  gap: 1rem;
-  color: #3a3a3a;
-  background-color: #eeeeee;
-  width: 100%;
-  padding: 0.5rem 0.25rem;
-}
-#detailsModal div :nth-child(1) {
-  font-weight: bold;
+/* Tablets and smaller screens */
+@media (max-width: 860px) {
+    main {
+        flex-direction: column; /* Stack items vertically */
+        align-items: center; /* Center content */
+        margin: 2rem;
+    }
+
+    #temp {
+        font-size: 6rem;
+        max-height: 200px;
+    }
+
+    #info {
+        align-items: center;
+        margin-top: 1rem;
+    }
+
+    #cond,
+    #loc-m {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    #datetime {
+        align-items: center;
+    }
+
+    #cond {
+        font-size: 1.5rem;
+    }
+
+    #user > :not(:last-child) {
+        margin-bottom: 1rem;
+    }
+
+    #img svg {
+        width: 3rem;
+        height: 2rem;
+    }
+
+    #rest {
+        align-items: center;
+    }
+
+    .val {
+        font-size: 1.5rem;
+    }
 }
 
-#detailsModal-top {
-  padding: 0.5rem 0.5rem;
-  width: 100%;
-  display: flex;
-  align-items: center;
-}
-#detailsModal-top p {
-  padding: 0;
-  font-size: 1.5rem;
-  margin: 0 auto 0 0.5rem;
-}
-#detailsModal-top-close {
-  height: 2rem;
-  width: 2rem;
-  display: block;
-  background: url("./images/close.svg");
-  background-repeat: no-repeat;
-  background-size: contain;
-  margin-right: 1rem;
-  transition: box-shadow 250ms ease-in-out;
-}
-#detailsModal-top-close:hover {
-  cursor: pointer;
-  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-}
+/* Mobile devices */
+@media (max-width: 480px) {
+    #temp {
+        font-size: 4rem;
+        max-height: 150px;
+    }
 
-#editModal {
-  text-align: center;
-  visibility: hidden;
-  position: fixed;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  height: fit-content;
+    #info {
+        font-size: 0.8rem;
+    }
 
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  width: max-content;
+    #cond {
+        font-size: 1rem;
+    }
 
-  border-radius: 8px;
-  z-index: 100;
-  box-shadow: 0px 10px 50px rgba(0, 0, 0, 0.1);
-  overflow: hidden;
-  background-color: #eeeeee;
-  box-shadow:
-    rgba(0, 0, 0, 0.16) 0px 10px 36px 0px,
-    rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
-}
-#editModal p {
-  text-wrap: wrap;
-  margin: 0;
-  padding: 0;
-}
+    #img svg {
+        width: 2rem;
+        height: 1.5rem;
+    }
 
-#editModal div :nth-child(1) {
-  font-weight: bold;
-}
-
-#editModal-top {
-  padding: 0.5rem 0.5rem;
-  width: 100%;
-  background-color: #3a3a3a;
-  color: #eeeeee;
-  display: flex;
-  align-items: center;
-}
-#editModal-top p {
-  padding: 0;
-  font-size: 1.5rem;
-  margin: 0 auto 0 0.5rem;
-}
-#editModal-top-close {
-  height: 2rem;
-  width: 2rem;
-  display: block;
-  background: url("./images/close.svg");
-  background-repeat: no-repeat;
-  background-size: contain;
-  background-color: #eeeeee;
-  margin-right: 1rem;
-  transition: box-shadow 250ms ease-in-out;
-}
-#editModal-top-close:hover {
-  cursor: pointer;
-  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-}
-#editForm div {
-  margin: 0.5rem 0.75rem;
-  font-family: "Poppins", sans-serif;
-  display: flex;
-  gap: 1rem;
-  color: #3a3a3a;
-  background-color: #eeeeee;
-  width: max-content;
-  padding: 0.5rem 0.25rem;
-  display: flex;
-  gap: 1rem;
-  align-items: center;
-  transition: box-shadow 150ms ease-in-out;
-}
-#editForm div:hover {
-  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-}
-#editForm textarea {
-  border: none;
-  resize: none;
-  width: 100%;
-  overflow: hidden;
-  background-color: transparent;
-  color: #3a3a3a;
-  font-family: "Poppins", sans-serif;
-}
-#editForm textarea:focus {
-  outline: none;
-}
-#editForm textarea::placeholder {
-  color: #3a3a3a;
-}
-#edit-priority {
-  justify-content: space-around;
-}
-#edit-date .dueDate {
-  display: flex;
-  flex-direction: row;
-  gap: 10px;
-}
-#edit-priority .editPriority {
-  display: flex;
-  gap: 10px;
-}
-
-#biggerNotes {
-  padding: 1rem;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  gap: 1rem;
-}
-#noteDiv {
-  width: max-content;
-  height: max-content;
-  padding: 1rem;
-  margin-top: 20px;
-  background-color: #eee;
-  border-radius: 4px;
-  font-weight: 300;
-  word-wrap: break-word;
-  overflow-wrap: break-word;
-  transition: all 250ms ease-in;
-}
-#noteDiv::-webkit-scrollbar {
-  display: none;
-}
-#noteDiv:hover {
-  transform: scale(1.05);
-  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
-}
-#noteDiv p {
-  word-wrap: break-word;
-  white-space: "pre-wrap";
-  padding: 0;
-  margin: 0;
-}
-#deleteNoteBtn {
-  height: 1rem;
-  width: 1rem;
-  display: block;
-  margin-right: 0.25rem;
-  margin-left: auto;
-}
-#deleteNoteBtn:hover {
-  cursor: pointer;
+    .val {
+        font-size: 1rem;
+    }
 }
