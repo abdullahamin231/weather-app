@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Todo</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,800;1,900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../src/style.css" />
+  </head>
+  <body>
+    <header>
+      <div class="library-txt">TODO🎯</div>
+    </header>
+
+    <main id="main">
+      <div class="all-projects">
+        <div id="btn"><button id="home">Home</button></div>
+        <div id="btn"><button id="today">Today</button></div>
+        <div id="btn"><button id="week">This Week</button></div>
+        <div id="btn"><button>Projects</button></div>
+        <div id="projects">
+          <ul>
+            <!-- <div id="btn"><button>Project1</button></div> -->
+          </ul>
+        </div>
+        <div id="btn"><button id="notes">Notes</button></div>
+        <div id="createBtnDiv"><button id="createBtn">+</button></div>
+      </div>
+      <div class="current-project">
+        <!-- <div id="todoBox">
+                <div class="todo-tick"></div>
+                <div class="todo-title">Title</div>
+                <div class="todo-details"><button id="todo-details-btn">details</button></div>
+                <div class="todo-date">Jan 1st</div>
+                <div class="todo-edit"></div>
+                <div class="todo-delete"></div>
+            </div> -->
+      </div>
+    </main>
+    <div id="modal">
+      <div class="modal-top">
+        <p>Create new...</p>
+        <div id="modal-top-close"></div>
+      </div>
+      <form action="submit" id="form">
+        <div class="modal-all-projects">
+          <div id="btn"><button id="Btntodo" type="button">Todo</button></div>
+          <div id="btn">
+            <button id="Btnproject" type="button">Project</button>
+          </div>
+          <div id="btn"><button id="Btnnote" type="button">Note</button></div>
+        </div>
+        <div class="modal-current-project-todo">
+          <textarea
+            name=""
+            id="textarea-title"
+            cols="30"
+            rows="1"
+            placeholder="Title: Pay bills..."
+            required
+          ></textarea>
+          <textarea
+            name=""
+            id="textarea-details"
+            cols="30"
+            rows="10"
+            placeholder="Details: e.g internet, gas..."
+          ></textarea>
+          <div class="dueDate">
+            <p>Due Date:</p>
+            <input type="date" id="modal-date" required />
+          </div>
+          <div class="priority">
+            <label for="priority">Priority: </label>
+            <select id="priority" name="priority" required>
+              <option id="low" value="low">Low</option>
+              <option id="medium" value="medium">Medium</option>
+              <option id="high" value="high">High</option>
+            </select>
+            <button class="priorBtn" id="add" type="submit">add to do</button>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div id="detailsModal">
+      <div id="detailsModal-top">
+        <p>Details...</p>
+        <div id="detailsModal-top-close"></div>
+      </div>
+      <div id="details-title">
+        <p id="details-title-p">Title:</p>
+        <p id="details-title-actual"></p>
+      </div>
+      <div id="details-details">
+        <p id="details-details-p">Details:</p>
+        <p id="details-details-actual"></p>
+      </div>
+      <div id="details-date">
+        <p id="details-details-date">Date:</p>
+        <p id="details-date-actual"></p>
+      </div>
+      <div id="details-priority">
+        <p id="details-priority-p">Priority:</p>
+        <p id="details-priority-actual"></p>
+      </div>
+    </div>
+    <div id="editModal">
+      <div id="editModal-top">
+        <p>Edit...</p>
+        <div id="editModal-top-close"></div>
+      </div>
+      <form action="submit" id="editForm">
+        <div id="edit-title">
+          <p id="edit-title-p">Title:</p>
+          <textarea
+            name=""
+            id="textarea-edit-title"
+            cols="30"
+            rows="1"
+          ></textarea>
+        </div>
+        <div id="edit-edit">
+          <p id="edit-edit-p">Details:</p>
+          <textarea
+            name=""
+            id="textarea-edit-details"
+            cols="30"
+            rows="10"
+          ></textarea>
+        </div>
+        <div id="edit-date">
+          <p id="edit-edit-date">Date:</p>
+          <input type="date" id="edit-date-input" />
+        </div>
+        <div id="edit-priority">
+          <div class="editPriority">
+            <label for="editPriority">Priority: </label>
+            <select id="editPriority" name="priority" required>
+              <option id="low" value="low">Low</option>
+              <option id="medium" value="medium">Medium</option>
+              <option id="high" value="high">High</option>
+            </select>
+          </div>
+          <button class="editPriorBtn" id="add" type="submit">
+            confirm changes
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <script src="./main.js"></script>
+  </body>
+</html>
