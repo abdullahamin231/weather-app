@@ -13,6 +13,9 @@ body::-webkit-scrollbar {
     display: none;
 }
 
+
+
+
 main {
     margin: 3rem 4rem;
     display: flex;
@@ -29,7 +32,7 @@ main {
     font-size: 10rem;
     margin: 0;
     max-height: 280px;
-    color: #ecfffe;
+    color: #ecfffe;    
 }
 
 #info {
@@ -37,19 +40,22 @@ main {
     flex-direction: column;
     align-items: flex-start;
     margin-left: 1rem;
-    color: #ffda7d;
-    background-color: #539ca747;
-    font-weight: bolder;
+    color: #EEEEEE;
+    background-color: rgba(15, 15, 15, 0.798);
     max-width: fit-content;
     padding: 0.75rem .5rem;
 	transition: all 250ms ease-in-out;
 }
+
 #cond,
 #loc-m {
+    font-weight: bolder;
+
     display: flex;
     flex-direction: row;
     align-items: center;
     gap: 0.5rem;
+    
 }
 
 #datetime {
@@ -123,14 +129,50 @@ input[type="text"]:hover, input[type="text"]:focus-visible{
     font-weight: bold;
     font-size: 2rem;
 }
+#forecast {
+    display: flex;
+    flex-direction: row;
+    margin: 2rem 1rem;
+    justify-content: center;
+    gap: 1rem;
+}
 
+.forecast {
+    background-color: #37383cc8;
+    width: 8rem;
+    padding: 1rem;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    text-align: center; /* Center text within forecast div */
+    border-radius: 8px; /* Add some border-radius for a softer look */
+}
+
+.forecast p {
+    margin: 0;
+    padding: .25rem;
+}
+
+.forecast p:first-child {
+    font-weight: bold;
+    margin-bottom: .5rem; /* Add some spacing between the day and temperature */
+}
+
+/* Style for temperature */
+.forecast #temperature {
+    font-size: 1.2rem;
+    color: #ff7b00; /* Adjust the color to your preference */
+}
+
+/* Style for weather condition */
+.forecast #condition {
+    font-style: italic;
+    color: #a3a3a3; /* Adjust the color to your preference */
+}
+
+.forecast img{
+    width: auto;
+}
 /* Media Queries */
 
-@media (max-width: 950px){
-	main{
-		font-size: smaller;
-	}
-}
 
 /* Tablets and smaller screens */
 @media (max-width: 860px) {
